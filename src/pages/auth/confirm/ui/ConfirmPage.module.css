@@ -1,0 +1,16 @@
+.wrapperConfirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+}
+
+.confirmMessage {
+  margin: 19px 0 54px;
+}
+
+.button {
+  margin-bottom: 72px;
+  min-width: 182px;
+  width: 100%;
+}

@@ -1,0 +1,56 @@
+.button {
+  color: var(--color-light-100) !important;
+  transition: color 0.2s ease;
+}
+
+.button:hover {
+  color: var(--color-accent-500) !important;
+}
+
+.button:hover .text {
+  color: var(--color-accent-500) !important;
+}
+
+.button:hover svg {
+  color: var(--color-accent-500) !important;
+}
+
+.text {
+  line-height: 1;
+  color: var(--color-light-100);
+  transition: color 0.2s ease;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.center svg {
+  color: var(--color-light-100);
+  flex-shrink: 0;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+.message {
+  margin-bottom: 24px;
+  color: var(--color-light-100);
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.confirmButton {
+  min-width: 96px;
+}
+
+.cancelButton {
+  min-width: 96px;
+}

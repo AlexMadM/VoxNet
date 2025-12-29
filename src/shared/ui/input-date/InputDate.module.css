@@ -1,0 +1,108 @@
+.card {
+  padding: 6px 24px;
+  position:absolute;
+}
+
+.navBtn {
+  padding: 8px;
+  background-color: var(--color-dark-100);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:focus {
+    outline: 2px solid var(--color-accent-300);
+    border-radius: 50%;
+  }
+}
+
+.chevron {
+  display: inline-block;
+  fill: var(--color-light-100);
+
+}
+
+.today {
+  color: var(--color-accent-500);
+}
+
+.outside {
+  color: var(--color-light-900)
+}
+
+.day {
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  font-size: var(--font-size-m); /* 16px */
+  font-weight: var(--font-weight-regular); /* 400 */
+  line-height: var(--line-height-m); /* 24px */
+
+  & :focus {
+    /*стили для дочернего элемента*/
+    outline: 2px solid var(--color-accent-300);
+  }
+
+  &:hover:not(.rangeStart, .rangeEnd, .rangeMiddle) {
+    background-color: var(--color-accent-700);
+    border-radius: 50%;
+  }
+
+  & :hover {
+    background-color: var(--color-accent-700);
+    border-radius: 50%;
+  }
+}
+
+.weekday {
+  width: 36px;
+  height: 40px;
+  padding: 6px;
+  color: var(--color-light-900);
+  font-size: var(--font-size-m); /* 16px */
+  font-weight: var(--font-weight-regular); /* 400 */
+  line-height: var(--line-height-m); /* 24px */
+
+}
+
+.weekend {
+  color: var(--color-danger-300)
+}
+
+.selected {
+  background-color: var(--color-accent-900);
+}
+
+.rangeEnd {
+  border-bottom-right-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+.rangeStart {
+  border-bottom-left-radius: 50%;
+  border-top-left-radius: 50%;
+}
+
+.rangeMiddle {
+  border-radius: 0;
+  background-color: var(--color-accent-900);
+}
+
+/* Обёртка для поля с иконкой */
+.dateInputWrapper {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+}
+
+/*календарь */
+.calendarIcon {
+  position: absolute;
+  right: 12px;
+  top: calc(50% + 10px); /* +8px чтобы опустить ниже от лейбла */
+  transform: translateY(-50%);
+  cursor: pointer;
+}

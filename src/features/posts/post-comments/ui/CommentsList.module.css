@@ -1,0 +1,21 @@
+.commentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.loading,
+.error,
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  color: rgba(248, 249, 250, 0.5);
+  font-size: 14px;
+  text-align: center;
+}
+
+.error {
+  color: rgba(255, 107, 107, 0.8);
+}

@@ -1,0 +1,38 @@
+/*стили ка поста */
+.postCard {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 18px 12px 0;
+  min-width: 480px;
+  background-color: #333;
+}
+
+.card {
+  display: flex;
+  gap: 12px;
+  margin-right: auto;
+  align-items: center;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Только имя пользователя */
+/*.top {*/
+/*  display: flex;*/
+/*}*/
+
+.userName {
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-m);
+  font-weight: var(--font-weight-semi-bold);
+  color: var(--color-light-100);
+}
+
+/* Стили для аватарки (если нужно) */
+.avatar {
+  border-radius: 50%;
+}

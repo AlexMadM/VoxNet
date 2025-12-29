@@ -1,0 +1,108 @@
+.button {
+  all: unset;
+  cursor: pointer;
+  box-sizing: border-box;
+  color: var(--color-light-100);
+  font-size: var(--font-size-m);
+  /*min-width: 100px;*/
+  border-radius: 2px;
+  text-align: center;
+  font-weight: var(--font-weight-semi-bold);
+  padding: 6px 24px;
+  border: 1px solid transparent;
+}
+
+/* ========== PRIMARY ========== */
+.primary {
+  background-color: var(--color-accent-500);
+}
+
+.primary:active {
+  background-color: var(--color-accent-700);
+}
+
+.primary:hover {
+  background-color: var(--color-accent-100);
+}
+
+.primary:focus {
+  background-color: var(--color-accent-700);
+}
+
+.primary:disabled {
+  background-color: var(--color-accent-900);
+}
+
+/* ========== SECONDARY ========== */
+
+.secondary {
+  background-color: var(--color-dark-300);
+}
+
+.secondary:active {
+  background-color: var(--color-dark-500);
+}
+
+.secondary:hover {
+  background-color: var(--color-dark-100);
+  border: 1px solid var(--color-accent-300);
+}
+
+.secondary:focus {
+  background-color: var(--color-dark-300);
+}
+
+.secondary:disabled {
+  background-color: var(--color-dark-500);
+}
+
+/* ========== OUTLINED ========== */
+.outlined {
+  color: var(--color-accent-500);
+  border: 1px solid var(--color-accent-500);
+  border-radius: 2px;
+  padding: 6px 24px;
+}
+
+.outlined:active {
+  background-color: var(--color-accent-700);
+}
+
+.outlined:hover {
+  color: var(--color-accent-100);
+  border: 1px solid var(--color-accent-100);
+}
+
+.outlined:focus {
+  color: var(--color-accent-700);
+  border: 1px solid var(--color-accent-700);
+}
+
+.outlined:disabled {
+  color: var(--color-accent-900);
+  border: 1px solid var(--color-accent-900);
+}
+
+/* ========== Text  ========== */
+
+.textButton {
+  color: var(--color-accent-500);
+  padding: 6px 24px;
+}
+
+/*.textButton:active {*/
+/*  color: var(--color-accent-500);*/
+/*}*/
+
+.textButton:hover {
+  color: var(--color-accent-700);
+}
+
+.textButton:focus {
+  color: var(--color-accent-500);
+  border: 1px solid var(--color-accent-500);
+}
+
+.textButton:disabled {
+  color: var(--color-accent-900);
+}

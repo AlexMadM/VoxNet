@@ -1,0 +1,14 @@
+.legal {
+  max-width: 60rem;
+  width: 100%;
+  margin: 0 auto;
+
+  h1 {
+    text-align: center;
+    padding: 1.25rem;
+  }
+
+  p {
+    text-align: center;
+  }
+}

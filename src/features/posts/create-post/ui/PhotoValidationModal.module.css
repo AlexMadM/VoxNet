@@ -1,0 +1,13 @@
+.textModal {
+  margin-top: 16px;
+  text-align: left;
+}
+
+.textModal:first-of-type {
+  margin-top: 0;
+}
+
+.buttonModal {
+  margin-top: 18px;
+  margin-left: 230px;
+}

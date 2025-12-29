@@ -1,0 +1,204 @@
+/* Основной контейнер скелетона модального окна */
+.modalSkeleton {
+  display: flex;
+  flex-direction: row;
+  width: 970px;
+  height: 562px;
+  max-height: calc(100vh - 48px);
+  background: var(--color-dark-300);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Левая часть - изображение */
+.imageSkeleton {
+  position: relative;
+  width: 490px;
+  height: 562px;
+  flex-shrink: 0;
+  background: #000;
+  overflow: hidden;
+}
+
+.skeletonShimmer {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-dark-500) 0%, var(--color-dark-300) 50%, var(--color-dark-500) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Правая часть - сайдбар */
+.sidebarSkeleton {
+  width: 480px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-dark-300);
+  padding: 0;
+  height: 562px;
+}
+
+/* Заголовок сайдбара */
+.headerSkeleton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 10px 24px;
+  border-bottom: 1px solid var(--color-dark-100);
+}
+
+.avatarSkeleton {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, var(--color-dark-500) 0%, var(--color-dark-300) 50%, var(--color-dark-500) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.userNameSkeleton {
+  width: 120px;
+  height: 16px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-dark-500) 0%, var(--color-dark-300) 50%, var(--color-dark-500) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Комментарии */
+.commentsSkeleton {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 12px 24px;
+  overflow-y: auto;
+}
+
+.commentSkeleton {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.commentAvatarSkeleton {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, var(--color-dark-500) 0%, var(--color-dark-300) 50%, var(--color-dark-500) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.commentContentSkeleton {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.commentAuthorSkeleton {
+  width: 100px;
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-dark-500) 0%, var(--color-dark-300) 50%, var(--color-dark-500) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.commentTextSkeleton {
+  width: 100%;
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-dark-500) 0%, var(--color-dark-300) 50%, var(--color-dark-500) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.commentTextSkeleton:last-child {
+  width: 70%;
+}
+
+/* Футер */
+.footerSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+}
+
+.likesAvatarsSkeleton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.likeAvatarSkeleton {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--color-dark-300);
+  background: linear-gradient(90deg, var(--color-dark-500) 0%, var(--color-dark-300) 50%, var(--color-dark-500) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  margin-left: -8px;
+}
+
+.likeAvatarSkeleton:first-child {
+  margin-left: 0;
+}
+
+.likesCountSkeleton {
+  width: 80px;
+  height: 16px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-dark-500) 0%, var(--color-dark-300) 50%, var(--color-dark-500) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.timestampSkeleton {
+  width: 120px;
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-dark-500) 0%, var(--color-dark-300) 50%, var(--color-dark-500) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Анимация shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .modalSkeleton {
+    flex-direction: column;
+    height: auto;
+    max-height: calc(100vh - 24px);
+  }
+
+  .imageSkeleton {
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+    aspect-ratio: 1 / 1;
+  }
+
+  .sidebarSkeleton {
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+  }
+}

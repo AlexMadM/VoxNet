@@ -1,0 +1,133 @@
+.dialog {
+  background-color: #333;
+  z-index: 200;
+}
+
+.dialog :global(.Dialog-module__X669Ia__content) {
+  padding: 0;
+}
+
+.wrapper {
+  display: flex;
+  box-shadow: none;
+  align-items: stretch;
+}
+
+.imgBox {
+  display: flex;
+  flex-shrink: 0;
+  width: 490px;
+}
+
+.img {
+  width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+}
+
+/*форма */
+.form {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #333;
+  min-width: 490px;
+}
+
+
+/* Стили для аватарки с именем -у калеги */
+.description {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 12px 12px 12px 0;
+  margin-bottom: 30px;
+}
+
+.avatar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.descriptionUser {
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+/*==============*/
+.button,
+.buttoninfo {
+  margin-top: auto;
+  align-self: flex-end;
+}
+
+.buttoninfo {
+  margin-top: 30px;
+}
+
+/*стили для  мадального окна сообщение */
+.editbutton {
+  max-width: 100%;
+  border: 1px solid var(--color-light-100);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-light-100);
+}
+
+/*для мыдального окна c сообщением  */
+.confirmContent{
+  padding: 20px;
+}
+
+.confirmButtons {
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+}
+
+/* Стили для confirm диалогового окна */
+.confirmDialog {
+  z-index: 1000;
+  position: fixed;
+  padding: 24px ;
+  width: 486px;
+}
+
+.confirmContent {
+  padding: 0;
+  width: 100%;
+}
+
+.confirmText {
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-m);
+  color: var(--color-light-100);
+  text-align: left;
+  margin-top: 30px;
+}
+
+.confirmButtons {
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+}
+
+/* ТОЛЬКО ДЛЯ STORYBOOK - эти стили применятся только в Storybook */
+:global(.sb-show-main) .dialog {
+  margin-top: 350px;
+}
+
+:global(.sb-show-main) .confirmDialog {
+  margin-top: 300px;
+}

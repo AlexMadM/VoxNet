@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.contentWithSidebar {
+  display: flex;
+  flex: 1; /* Растягивается на всё доступное место */
+  width: 100%;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  margin-left: 24px;
+  margin-right: 64px;
+  /* Отступ сверху переносим сюда, если хедер фиксированный, или он уже есть у хедера */
+  /* margin-top: 60px; <-- если хедер fixed, отступ нужен. Если sticky/relative - нет. */
+  /* Скорее всего, margin-top: 60px был нужен main'у раньше, теперь он может быть не нужен,
+     либо нужен всему .contentWithSidebar, если хедер fixed */
+  margin-top: 36px;
+}
+.post {
+  display: flex;
+  padding-top: 24px;
+
+  margin: 0 auto;
+}

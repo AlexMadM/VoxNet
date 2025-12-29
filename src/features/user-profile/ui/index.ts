@@ -1,0 +1,1 @@
+export { ProfilePageClient } from './ProfilePageClient'

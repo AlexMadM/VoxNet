@@ -1,0 +1,102 @@
+
+.trigger {
+  all: unset;
+  display: inline-flex;
+  justify-content: space-between;
+  width: 358px;
+  padding: 6px 12px;
+  font-weight: 400;
+  /*background-color: #171717;*/
+  border: 1px solid #4c4c4c;
+  border-radius: 2px;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 14px;
+  line-height: 24px;
+  color: #BDC1C7;
+  font-weight: 400;
+}
+
+.trigger:hover {
+  border-color: #ccc;
+}
+
+.trigger:focus {
+  outline: none;
+  border-color: #2f68cc;
+}
+
+.trigger[data-placeholder] {
+  color: #ffffff;
+}
+
+.icon {
+  color: #ffffff;
+}
+
+.content {
+  z-index: 1000;
+  background-color: #2d2d2d;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 100%;
+  /*min-width: 358px;*/
+  border: 1px solid #4c4c4c;
+}
+
+.item {
+  all: unset;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.item:hover {
+  background-color: #3d3d3d;
+  outline: none;
+}
+
+.item[data-highlighted] {
+  background-color: #3d3d3d;
+  outline: none;
+}
+
+.item[data-state="checked"] {
+  background-color: #4d4d4d;
+  font-weight: 500;
+}
+
+.item[data-disabled] {
+  color: #d1d5db;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Стили для галочки на выбранном пункте */
+.itemIndicator {
+  position: absolute;
+  right: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.indicatorIcon {
+  width: 16px;
+  height: 16px;
+  color: #ffffff;
+}

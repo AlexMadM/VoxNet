@@ -1,0 +1,38 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 9999; /* чтобы ничего не перекрывали */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.15); /* мягкое затемнение */
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 3px solid var(--color-accent-100);
+  border-right: 3px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+.inlineLoader {
+  display: inline-block;
+  border-radius: 50%;
+  border-top: 0.2em solid currentColor; /* <-- берёт цвет текста кнопки */
+  border-right: 0.2em solid transparent;
+  animation: rotation 0.75s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

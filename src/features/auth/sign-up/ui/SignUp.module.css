@@ -1,0 +1,48 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  max-width: 378px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.containerBtn {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  padding: 13px 0;
+}
+
+.containerInput {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 84px;
+}
+
+.inputCustom {
+  min-width: 330px;
+  min-height: 36px;
+  width: 100%;
+}
+
+.containerIAgree {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding-bottom: 12px;
+}
+
+.paragraph {
+  display: inline;
+}
+
+.buttonFullWidth {
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.link {
+  font-size: var(--font-size-xs);
+}

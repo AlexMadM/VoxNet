@@ -1,0 +1,227 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  flex-shrink: 0;
+  min-width: 492px;
+}
+
+.cropContainer {
+  flex: 1;
+  min-height: 500px;
+  background-color: var(--color-dark-300);
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnScale {
+  background-color: var(--color-dark-300);
+  opacity: 0.8;
+}
+
+.cropImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+  will-change: transform;
+  user-select: none;
+  pointer-events: auto;
+  max-width: none;
+  max-height: none;
+  cursor: grab;
+}
+
+.cropImage:active {
+  cursor: grabbing;
+}
+
+/* Контейнер для затемнения */
+.darkOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.darkTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-dark-900);
+}
+
+.darkBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-dark-900);
+}
+
+.darkLeft {
+  position: absolute;
+  left: 0;
+  background-color: var(--color-dark-900);
+}
+
+.darkRight {
+  position: absolute;
+  right: 0;
+  background-color: var(--color-dark-900);
+}
+
+/* Рамка выделения */
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.controls {
+  position: absolute;
+  top: 90%;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  gap: 12px;
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.aspect {
+  display: flex;
+  gap: 8px;
+}
+
+.zoom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.paragraph {
+  margin: 0;
+}
+
+.thumbnails {
+  position: absolute;
+  top: 74%;
+  right: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: var(--color-dark-300);
+  opacity: 0.8;
+  padding: 12px;
+  border-top: 1px solid var(--color-dark-300);
+  flex-shrink: 0;
+  max-height: 120px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.thumbnailsList {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.thumbnailsList::-webkit-scrollbar {
+  height: 4px;
+}
+
+.thumbnailsList::-webkit-scrollbar-track {
+  background-color: var(--color-dark-300);
+  border-radius: 2px;
+}
+
+.thumbnailsList::-webkit-scrollbar-thumb {
+  background-color: var(--color-dark-100);
+}
+
+.thumbnailsList::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-dark-100);
+}
+
+.thumbnailWrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.thumbnail {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  background-color: var(--color-dark-300);
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+
+.thumbnail:hover {
+  transform: scale(1.05);
+  border-color: var(--color-dark-100);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumbnailDelete {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-dark-300);
+  color: white;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+  transition: all 0.2s;
+  opacity: 60%;
+}
+
+.plusCircleOutline {
+  width: 36px;
+  height: 36px;
+  text-align: start;
+}

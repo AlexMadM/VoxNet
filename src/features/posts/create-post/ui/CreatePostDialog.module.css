@@ -1,0 +1,37 @@
+.modal {
+  background-color: var(--color-dark-300);
+  /*z-index: 100;*/
+}
+
+.modal :global(.Dialog-module__X669Ia__content) {
+  padding: 0;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 492px;
+  width: 100%;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.placeholder {
+  width: 222px;
+  height: 228px;
+  background: var(--color-dark-500);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  margin: 70px 0 60px;
+}
+
+.containerBtn {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 48px;
+}

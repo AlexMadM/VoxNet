@@ -1,0 +1,25 @@
+.modalContent {
+  max-width: 438px;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  text-align: center;
+  color: var(--color-light-100);
+  padding-bottom: 54px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+}
+.button{
+  width: 96px;
+}
+

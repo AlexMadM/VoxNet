@@ -1,0 +1,13 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  max-width: 378px;
+  height: fit-content;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.title {
+  align-self: center;
+  margin-bottom: 13px;
+}

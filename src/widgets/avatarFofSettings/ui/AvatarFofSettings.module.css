@@ -1,0 +1,33 @@
+
+.avatar {
+position: relative;
+
+}
+
+.button {
+  width: 32px;
+  height: 32px;
+
+  padding: 0;
+  border-radius: 50%;
+  background-color: var(--color-dark-700);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.ring {
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+  background-color: var(--color-danger-500);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

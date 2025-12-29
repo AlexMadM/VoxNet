@@ -1,0 +1,12 @@
+
+.trigger {
+  padding: 6px 24px;
+  color: var(--color-dark-100);
+  border-bottom: 2px solid var(--color-dark-100);
+}
+
+.trigger[data-state="active"] {
+  color: var(--color-accent-500);
+  border-color: var(--color-accent-500);
+
+}

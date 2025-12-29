@@ -1,0 +1,83 @@
+
+
+/* Контейнер для всей страницы */
+.container {
+  width: 100%;
+  border: none;
+}
+
+
+.form {
+  width: 100%;
+  padding: 24px 64px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  border: none;
+
+}
+
+/* Контейнер для фото и полей (рядно) */
+.formContent {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.photoBox {
+  width: 192px;
+  height: 192px;
+  background: var(--color-dark-300);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Правая колонка с полями */
+.formFields {
+  /*margin-top: 20px;*/
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* ← ОТСТУП 24px МЕЖДУ ВСЕМИ ПОЛЯМИ */
+  margin-bottom: 2px;
+}
+
+/* Селекты рядом через flex */
+.selectsContainer {
+  display: flex;
+  gap: 24px;
+  /* margin-top удален - управляется gap родителя */
+}
+
+/* Каждый селект занимает половину */
+.selectsContainer > * {
+  flex: 1;
+}
+.formFields > *:not(.selectsContainer) {
+  /*margin-bottom: 2px;*/
+  /*color: #990f2b;*/
+
+}
+
+.errorMessage {
+  color: var(--color-danger-500);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-s);
+  margin-top: 4px; /* Маленький отступ от поля до ошибки */
+  display: block;
+}
+
+/* Полоска-разделитель - на всю ширину карточки */
+.hr {
+  border-top: 1px solid var(--color-dark-100);
+  margin: 24px -64px;
+  width: calc(100% + 128px); /* 100% + (64px * 2) для выхода за padding */
+}
+
+/* Кнопка */
+.buttonform {
+  margin-left: auto;
+  width: auto;
+}

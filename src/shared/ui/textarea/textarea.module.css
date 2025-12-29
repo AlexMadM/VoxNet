@@ -1,0 +1,83 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Лейбл */
+.label {
+  display: block;
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-m);
+  font-weight: var(--font-weight-regular);
+  color: #8d9094;
+  margin-bottom: 2px;
+}
+
+/* Card вокруг textarea */
+.textareaCard {
+  width: 100%;
+  /*макету для формы надо 433px*/
+  outline: none;
+  background: var(--color-dark-500);
+  border: 1px solid var(--color-dark-100);
+  border-radius: 2px;
+}
+
+/* Hover */
+.textareaCard:hover {
+  border-color: var(--color-dark-100);
+}
+
+/* Active/Focus */
+.textareaCard:focus-within {
+  border-color: var(--color-accent-700);
+  border-width: 2px;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-light-100);
+  color: var(--color-light-100);
+}
+
+/* Error */
+.errorCard {
+  color: var(--color-light-100);
+  border-color: var(--color-danger-500);
+}
+
+/* Disabled */
+.textareaCard:has(.textarea:disabled) {
+  border-color: var(--color-dark-100);
+  background: var(--color-dark-500);
+}
+
+/* Сама textarea */
+.textarea {
+  width: 100%;
+  min-height: 120px;
+  height: 100%;
+  padding: 12px 12px 42px 12px;
+  background: transparent;
+  font-size: 16px;
+  line-height: 24px;
+  color: #8d9094;
+  resize: vertical;
+  outline: none;
+  font-weight: 400;
+  /*border: none;*/
+}
+
+/* Заблокирован */
+.textarea:disabled {
+  color: var(--color-dark-100);
+}
+
+/* Текст ошибки */
+.errorText {
+  display: block;
+  font-size: var(--font-size-s);
+  color: var(--color-danger-500);
+  margin-top: 2px;
+}

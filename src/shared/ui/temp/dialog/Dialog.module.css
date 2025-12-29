@@ -1,0 +1,55 @@
+.overlay {
+  background: var(--color-dark-900);
+  opacity: 0.6;
+  position: fixed;
+  inset: 0;
+}
+
+.container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+}
+
+.title {
+  border-bottom: 1px solid var(--color-dark-100);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+}
+
+.content {
+  padding: 24px;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.noBackground {
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.closeOutContent {
+  position: fixed;
+  top: 0;
+  right: 0;
+}

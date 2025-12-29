@@ -1,0 +1,81 @@
+.card {
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  max-width: 378px;
+  /*height: fit-content;*/
+  /*margin: 24px auto;*/
+  /*padding: 24px;*/
+  width: 100%;
+}
+
+.containerInput {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 84px;
+}
+
+.inputCustom {
+  /*min-width: 330px;*/
+  /*min-height: 36px;*/
+  /*width: 100%;*/
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-dark-500);
+  color: var(--color-light-100);
+  height: 100%;
+  width: 100%;
+}
+
+.title {
+  align-self: center;
+  margin-bottom: 13px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  width: 100%;
+  /*max-width: 348px;*/
+  margin: 24px 0 18px;
+}
+
+.fieldsWrapper {
+  display: flex;
+  flex-direction: column;
+  /*row-gap: 24px;*/
+  margin-bottom: 14px;
+}
+
+.forgotPasswordLink {
+  max-width: 112px;
+  margin: 0 0 24px auto;
+
+  color: var(--color-light-900);
+  text-align: right;
+  text-decoration: none;
+
+  &:visited {
+    color: var(--color-light-900);
+  }
+}
+
+.registration {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  align-items: center;
+}
+
+.registrationLink {
+  color: var(--color-accent-500);
+  text-decoration: none;
+  cursor: pointer;
+}

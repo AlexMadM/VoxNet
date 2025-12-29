@@ -1,0 +1,46 @@
+.modalContent {
+  max-width: 492px;
+  width: 100%;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  position: relative;
+}
+
+.image {
+  object-fit: cover;
+  width: 340px;
+  height: 340px;
+  display: block;
+}
+
+.preview::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, transparent 170px, rgba(0, 0, 0, 0.6) 170px, rgba(0, 0, 0, 0.6) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.button {
+  width: 86px;
+  align-self: flex-end;
+}
