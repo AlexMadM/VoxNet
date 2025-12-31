@@ -3,13 +3,16 @@ import { PostModalSkeleton } from '@/shared/ui'
 /**
  * Loading UI для intercepting route поста
  * 
- * Автоматически показывается Next.js во время навигации:
- * - При клике на пост с /profile/114 на /profile/114/776
- * - Во время SSR загрузки данных на сервере для модального окна
+ * Автоматически показывается Next.js во время выполнения await prefetchPostWithComments()
+ * в page.tsx. Это происходит при клиентской навигации (когда пользователь кликает на пост).
  * 
- * Этот loading.tsx используется для intercepting route (.)[postId]
- * который показывает пост в модальном окне
+ * Скелетон отображается до загрузки данных поста при перехвате навигации
  */
 export default function PostModalLoading() {
-  return <PostModalSkeleton />
+  return (
+    <div >
+      <PostModalSkeleton />
+    </div>
+  )
 }
+
