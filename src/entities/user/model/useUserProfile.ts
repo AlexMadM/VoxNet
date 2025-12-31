@@ -2,24 +2,24 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { userApi } from '../api/user'
-import { UserProfileResponse } from '../api/user-types'
+import { UserPublicProfile } from '@/entities/user'
 
 /**
- * Хук для получения данных профиля пользователя по userName.
+ * Хук для получения данных профиля пользователя по userId.
  * Используется на странице профиля для отображения статистики и информации.
  *
- * @param userName - Имя пользователя для загрузки профиля (может быть null/undefined)
+ * @param userId - ID пользователя для загрузки профиля (может быть null/undefined)
  * @returns Результат запроса с данными профиля, состоянием загрузки и ошибками
  */
-export const useUserProfile = (userName: string | null | undefined) => {
-  return useQuery<UserProfileResponse, Error>({
-    queryKey: ['user-profile', userName],
+export const useUserProfile = (userId: number | null | undefined) => {
+  return useQuery<UserPublicProfile, Error>({
+    queryKey: ['user-profile', userId],
     queryFn: () => {
       // Дополнительная проверка для TypeScript (enabled уже проверяет, но это для безопасности)
-      const result = userApi.userProfile(userName!)
+      const result = userApi.getPublicUserProfile(userId!)
       return result
     },
-    enabled: !!userName && userName.trim().length > 0,
+    enabled: !!userId && Number.isFinite(userId) && userId > 0,
     staleTime: 2 * 60_000, // 2 минуты - данные профиля не меняются часто
     gcTime: 5 * 60_000, // 5 минут в кэше
     retry: 1

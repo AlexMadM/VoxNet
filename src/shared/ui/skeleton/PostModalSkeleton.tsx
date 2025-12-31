@@ -1,5 +1,3 @@
-'use client'
-
 import s from './PostModalSkeleton.module.css'
 
 /**

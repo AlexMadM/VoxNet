@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import { ReactNode, Suspense } from 'react'
+import { ReactNode } from 'react'
 import { QueryProvider } from '@/app/providers/query-provider/query-provider'
 import '@/app/ui/styles/index.css'
 import { AuthProvider } from '@/shared/lib'
@@ -25,13 +25,9 @@ export const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <html lang="en" className={interFont.className}>
       <body>
-        <Suspense fallback={null}>
-          <QueryProvider>
-            <AuthProvider>
-              <>{children}</>
-            </AuthProvider>
-          </QueryProvider>
-        </Suspense>
+        <QueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   )

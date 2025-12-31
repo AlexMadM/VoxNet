@@ -14,7 +14,7 @@ import clsx from 'clsx'
 export const AppLayout = ({ children }: { children?: ReactNode }) => {
   const { user, isLoading } = useAuth()
 
-  if (isLoading) return <Spinner />
+  // if (isLoading) return <Spinner />
 
   const isAuth = !!user
 

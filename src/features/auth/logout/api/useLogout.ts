@@ -9,26 +9,42 @@ export const useLogout = () => {
 
   const mutation = useMutation({
     mutationFn: userApi.logout,
-    onSuccess: () => {
+    onSuccess: async () => {
       // Удаляем токен из localStorage
       if (typeof window !== 'undefined') {
         localStorage.removeItem('accessToken')
       }
 
-      // Очищаем все кэшированные данные
-      queryClient.clear()
+      // Явно устанавливаем user в null, чтобы AuthProvider сразу обновился
+      // Это обновит контекст и все компоненты, использующие useAuth()
+      queryClient.setQueryData(['me'], null)
 
-      // Перенаправляем на страницу входа
-      router.push(ROUTES.AUTH.SIGN_IN)
+      // Очищаем все остальные кэшированные данные (кроме ['me'])
+      // Используем removeQueries с фильтром, чтобы сохранить ['me'] с null значением
+      queryClient.removeQueries({
+        predicate: (query) => query.queryKey[0] !== 'me'
+      })
+
+      // Используем replace вместо push, чтобы не добавлять в историю
+      // replace автоматически обновит страницу и состояние
+      router.replace(ROUTES.AUTH.SIGN_IN)
     },
-    onError: (error) => {
+    onError: async (error) => {
       console.error('Logout failed:', error)
       // Даже при ошибке очищаем локальные данные
       if (typeof window !== 'undefined') {
         localStorage.removeItem('accessToken')
       }
-      queryClient.clear()
-      router.push(ROUTES.AUTH.SIGN_IN)
+
+      // Явно устанавливаем user в null, чтобы AuthProvider сразу обновился
+      queryClient.setQueryData(['me'], null)
+
+      // Очищаем все остальные кэшированные данные (кроме ['me'])
+      queryClient.removeQueries({
+        predicate: (query) => query.queryKey[0] !== 'me'
+      })
+
+      router.replace(ROUTES.AUTH.SIGN_IN)
     }
   })
 

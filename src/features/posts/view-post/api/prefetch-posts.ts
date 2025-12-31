@@ -5,29 +5,35 @@ import { postsApi } from '@/entities/posts/api'
 /**
  * Предзагрузка поста на сервере
  *
- * Использует ensureQueryData вместо prefetchQuery для оптимизации:
- * - Если данные уже есть в кеше QueryClient и свежие (staleTime) - не делает запрос
- * - Если данных нет или они устарели - делает запрос
- *
- * Важно для динамических данных:
- * - На сервере QueryClient создается заново для каждого запроса
- * - ensureQueryData защищает от дублирования запросов в рамках одного рендера
- * - staleTime: 2 минуты означает, что данные считаются свежими в течение этого времени
+ * Использует prefetchQuery (БЕЗ await) для оптимизации:
+ * - Быстрее отдает HTML пользователю
+ * - Запросы остаются в pending состоянии
+ * - На клиенте показывается скелетон, пока данные загружаются
+ * - Pending queries включаются в дегидратацию (настроено в get-query-client)
  *
  * @param queryClient - QueryClient для prefetch
  * @param postId - ID поста
  */
-export async function prefetchPost(queryClient: QueryClient, postId: number) {
-  await queryClient.ensureQueryData({
+export function prefetchPost(queryClient: QueryClient, postId: number) {
+  // void явно указывает, что мы намеренно игнорируем Promise
+  void queryClient.prefetchQuery({
     queryKey: ['post', postId],
     queryFn: () => postsApi.getPost(postId),
     staleTime: 2 * 60 * 1000 // 2 минуты
   })
 }
 
-export async function prefetchComments(queryClient: QueryClient, postId: number, pageSize: number = 6) {
-  // queryKey должен совпадать с useComments: ['comments', postId, pageSize]
-  await queryClient.ensureQueryData({
+/**
+ * Предзагрузка комментариев к посту
+ * queryKey должен совпадать с useComments: ['comments', postId, pageSize]
+ *
+ * @param queryClient - QueryClient для prefetch
+ * @param postId - ID поста
+ * @param pageSize - Размер страницы (по умолчанию 6)
+ */
+export function prefetchComments(queryClient: QueryClient, postId: number, pageSize: number = 6) {
+  // void явно указывает, что мы намеренно игнорируем Promise
+  void queryClient.prefetchQuery({
     queryKey: ['comments', postId, pageSize],
     queryFn: () => postsApi.getComments({ postId, pageSize }),
     staleTime: 2 * 60 * 1000 // 2 минуты
@@ -36,20 +42,31 @@ export async function prefetchComments(queryClient: QueryClient, postId: number,
 
 /**
  * Предзагрузка поста и комментариев в одном QueryClient
+ * НЕ ждем завершения запросов (без await) - это позволяет:
+ * 1. Быстрее отдать HTML пользователю
+ * 2. Запросы остаются в pending состоянии
+ * 3. На клиенте показывается скелетон, пока данные загружаются
+ * 4. Pending queries включаются в дегидратацию (настроено в get-query-client)
+ *
  * @param postId - ID поста
  * @param pageSize - Размер страницы для комментариев (по умолчанию 6)
- * @returns dehydratedState для передачи в HydrationBoundary
+ * @returns dehydratedState для передачи в HydrationBoundary (включая pending queries)
  */
 export async function prefetchPostWithComments(postId: number, pageSize: number = 6) {
   const queryClient = getQueryClient()
 
   try {
-    // Предзагружаем пост и комментарии в одном QueryClient
-    await Promise.all([prefetchPost(queryClient, postId), prefetchComments(queryClient, postId, pageSize)])
+    // Предзагружаем пост и комментарии (БЕЗ await - запросы будут в pending)
+    // Это позволяет быстрее отдать HTML и показать скелетон на клиенте
+    prefetchPost(queryClient, postId)
+    prefetchComments(queryClient, postId, pageSize)
   } catch (error) {
-    // Если предзагрузка не удалась - не критично, клиент повторит запрос
+    // Логируем ошибку, но не прерываем рендеринг
+    // Next.js обработает ошибку через свой механизм
     console.error('Prefetch post or comments error:', error)
   }
 
+  // Дегидратируем состояние, включая pending queries (настроено в get-query-client)
+  // Pending queries будут отправлены на клиент, и там покажется скелетон
   return dehydrate(queryClient)
 }

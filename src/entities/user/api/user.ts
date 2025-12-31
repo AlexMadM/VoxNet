@@ -17,7 +17,8 @@ import {
   SignUpErrorResponse,
   SignUpRequest,
   User,
-  UserProfileResponse
+  UserProfileResponse,
+  UserPublicProfile
 } from './user-types'
 
 export const userApi = {
@@ -83,6 +84,11 @@ export const userApi = {
     const response = await api.get<UserProfileResponse>(`/users/${userName}`)
     return response.data
   },
+  getPublicUserProfile: async (profileId: number) => {
+    const response = await api.get<UserPublicProfile>(`/public-user/profile/${profileId}`)
+    return response.data
+  },
+
   getPersonalData: async (): Promise<PersonalData> => {
     const response = await api.get<PersonalData>('/users/profile')
     return response.data

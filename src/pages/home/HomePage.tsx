@@ -3,6 +3,7 @@ import { RegisteredUsers } from '@/widgets/registeredUsers/RegisteredUsers'
 import { HomePostsList } from '@/widgets'
 import { PostsCacheProvider } from '@/widgets/homePostsList/ui/PostsCacheProvider'
 import { ResponsesPosts } from '@/entities/posts/api/types'
+
 // SSG: Страница будет статически сгенерирована на этапе сборки
 // ISR: Страница будет перегенерирована каждые 60 секунд при запросах
 export const revalidate = 60
@@ -23,12 +24,8 @@ export const HomePage = async () => {
   const apiUrl = 'https://inctagram.work/api/v1'
 
   const [postsResponse, usersResponse] = await Promise.all([
-    fetch(`${apiUrl}/posts/all`, {
-      next: { revalidate: 60 } // ISR: перегенерировать каждые 60 секунд
-    }).catch(() => null),
-    fetch(`${apiUrl}/public-user`, {
-      next: { revalidate: 60 } // ISR: перегенерировать каждые 60 секунд
-    }).catch(() => null)
+    fetch(`${apiUrl}/posts/all`).catch(() => null),
+    fetch(`${apiUrl}/public-user`).catch(() => null)
   ])
 
   const postsData: ResponsesPosts = postsResponse?.ok

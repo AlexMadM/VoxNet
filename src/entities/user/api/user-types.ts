@@ -132,3 +132,20 @@ export type PersonalDataRequest = {
   region?: string
   aboutMe: string
 }
+
+export type UserMetadata = {
+  following: number
+  followers: number
+  publications: number
+}
+
+export type UserPublicProfile = {
+  id: number
+  userName: string
+  aboutMe: string
+  avatars: Avatar[]
+  userMetadata: UserMetadata
+  hasPaymentSubscription: boolean
+  isFollowing: boolean
+  isFollowedBy: boolean
+}

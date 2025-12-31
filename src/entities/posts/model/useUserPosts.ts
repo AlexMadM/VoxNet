@@ -8,14 +8,7 @@ type UseUserPostsParams = {
   pageSize?: number
 }
 
-/**
- * Хук для получения постов конкретного пользователя с пагинацией и бесконечной прокруткой.
- * Используется на странице профиля для отображения сетки постов.
- *
- * @param userId - ID пользователя, чьи посты нужно загрузить
- * @param pageSize - Размер страницы (по умолчанию 8)
- * @returns Результат infinite query с данными постов, состоянием загрузки и ошибками
- */
+
 export const useUserPosts = ({ userId, pageSize = 8 }: UseUserPostsParams) => {
   return useInfiniteQuery({
     queryKey: ['user-posts', userId, pageSize],

@@ -7,7 +7,8 @@ export const ROUTES = {
     FORGOT_PASSWORD: '/forgot-password',
     CREATE_NEW_PASSWORD: '/create-password',
     CONFIRM_REGISTRATION: '/confirm-registration',
-    EMAIL_RESENDING: '/email-resending'
+    EMAIL_RESENDING: '/email-resending',
+    OAUTH_CALLBACK: '/auth/oauth-callback'
   },
 
   APP: {

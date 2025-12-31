@@ -39,6 +39,7 @@ export const PostModal = ({ postId }: PostModalProps) => {
   const { mutate: deletePost, isPending: isDeleting } = useDeletePost()
 
   // Запрос поста всегда активен - React Query сам управляет состоянием
+  // isLoading показывает, что данных нет и идет загрузка
   const { data: post, isLoading, error } = usePost(postId)
 
   // Закрытие модального окна с возвратом на предыдущую страницу
@@ -51,22 +52,7 @@ export const PostModal = ({ postId }: PostModalProps) => {
     [router]
   )
 
-  // Показываем скелетон только если данные загружаются и их еще нет
-  // При SSR данные уже в кэше, поэтому isLoading будет false
-  const showSkeleton = isLoading && !post
 
-  if (showSkeleton) {
-    return (
-      <Dialog open={true} onOpenChange={handleOpenChange}>
-        <DialogContent showCloseButton={false} className={s.modalContent}>
-          <DialogClose className={s.closeButton} aria-label="Закрыть">
-            <Close />
-          </DialogClose>
-          <PostModalSkeleton />
-        </DialogContent>
-      </Dialog>
-    )
-  }
 
   if (error) {
     return (
