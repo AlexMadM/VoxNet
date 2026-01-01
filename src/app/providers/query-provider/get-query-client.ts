@@ -3,7 +3,7 @@ import { isServer, QueryClient, defaultShouldDehydrateQuery } from '@tanstack/re
 /**
  * Константы для настройки QueryClient
  */
-const STALE_TIME = 60 * 1000 // 1 минута - время, в течение которого данные считаются свежими
+const STALE_TIME = 2 *60 * 1000 // 2 минута - время, в течение которого данные считаются свежими
 
 /**
  * Создает новый QueryClient с настройками для SSR
@@ -18,7 +18,7 @@ function makeQueryClient() {
     defaultOptions: {
       queries: {
         staleTime: STALE_TIME,
-        // Данные считаются свежими 1 минуту, что уменьшает количество запросов
+        // Данные считаются свежими 2 минуту, что уменьшает количество запросов
         refetchOnWindowFocus: false,
         // Не обновляем данные при фокусе окна (можно переопределить в конкретных запросах)
         refetchOnMount: false,

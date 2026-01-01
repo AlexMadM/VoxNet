@@ -24,7 +24,7 @@ const ProfilePage = async ({ params }: Props) => {
     return <div>Профиль не найден</div>
   }
 
-  const dehydratedState = prefetchProfileWithPosts(userId)
+  const dehydratedState = await prefetchProfileWithPosts(userId)
 
   return (
     <HydrationBoundary state={dehydratedState}>

@@ -1,54 +1,23 @@
-import s from './homePage.module.css'
-import { RegisteredUsers } from '@/widgets/registeredUsers/RegisteredUsers'
-import { HomePostsList } from '@/widgets'
-import { PostsCacheProvider } from '@/widgets/homePostsList/ui/PostsCacheProvider'
-import { ResponsesPosts } from '@/entities/posts/api/types'
+import { HydrationBoundary } from '@tanstack/react-query'
+import { HomePageClient } from './HomePageClient'
+import { prefetchHomePageData } from './prefetch-home-page'
 
 // SSG: Страница будет статически сгенерирована на этапе сборки
 // ISR: Страница будет перегенерирована каждые 60 секунд при запросах
 export const revalidate = 60
 
-type TotalCountUsersResponse = {
-  totalCount: number
-}
-
-const defaultPostsData: ResponsesPosts = {
-  totalCount: 0,
-  pageSize: 0,
-  items: [],
-  totalUsers: 0
-}
-
+/**
+ * Server Component для главной страницы.
+ * Использует прямой fetch для получения данных (сохраняем SSG/ISR оптимизацию)
+ * и заполняет кеш React Query через prefetchHomePageData.
+ */
 export const HomePage = async () => {
-  // const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://inctagram.work/api/v1'
-  const apiUrl = 'https://inctagram.work/api/v1'
-
-  const [postsResponse, usersResponse] = await Promise.all([
-    fetch(`${apiUrl}/posts/all`).catch(() => null),
-    fetch(`${apiUrl}/public-user`).catch(() => null)
-  ])
-
-  const postsData: ResponsesPosts = postsResponse?.ok
-    ? await postsResponse.json().catch(() => defaultPostsData)
-    : defaultPostsData
-  const totalCountUsers =
-    (usersResponse?.ok
-      ? ((await usersResponse.json().catch(() => null)) as TotalCountUsersResponse | null)?.totalCount
-      : null) ?? 0
-
-  // Ограничиваем количество постов на сервере (лучше для SSG)
-  const limitedPosts = postsData.items.slice(0, 4)
+  // Предзагружаем данные через fetch и заполняем кеш React Query
+  const { dehydratedState, postsData, totalCountUsers } = await prefetchHomePageData()
 
   return (
-    <PostsCacheProvider posts={limitedPosts}>
-      <div className={s.container}>
-        <RegisteredUsers totalCount={totalCountUsers} />
-        <ul className={s.userPostsList}>
-          {limitedPosts?.map((post) => (
-            <HomePostsList key={post.id} post={post} />
-          ))}
-        </ul>
-      </div>
-    </PostsCacheProvider>
+    <HydrationBoundary state={dehydratedState}>
+      <HomePageClient posts={postsData.items} totalCountUsers={totalCountUsers} />
+    </HydrationBoundary>
   )
 }
