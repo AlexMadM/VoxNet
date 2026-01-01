@@ -15,7 +15,8 @@ const MockAuthProvider = ({ children, user }: PropsWithChildren<{ user: User | n
     () => ({
       user,
       isLoading: false,
-      isError: false
+      isError: false,
+      isAuthenticated: !!user
     }),
     [user]
   )

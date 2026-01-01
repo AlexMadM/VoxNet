@@ -3,10 +3,7 @@
 import s from './skeleton.module.css'
 import { PostSkeleton } from './PostSkeleton'
 
-/**
- * Скелетон для загрузки профиля пользователя
- * Соответствует структуре UserProfile компонента
- */
+
 export const ProfileSkeleton = () => {
   return (
     <section className={s.profileSkeleton}>

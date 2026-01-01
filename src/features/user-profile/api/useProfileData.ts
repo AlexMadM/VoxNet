@@ -11,7 +11,7 @@ type UseProfileDataParams = {
   pageSize?: number
 }
 
-type UseProfileDataReturn = {
+export type UseProfileDataReturn = {
   // Данные
   profileData: ReturnType<typeof useUserProfile>['data']
   postsData: ReturnType<typeof useUserPosts>['data']
