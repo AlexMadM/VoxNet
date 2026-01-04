@@ -10,3 +10,5 @@ export { PostSkeleton, ProfileSkeleton, PostModalSkeleton, CommentsSkeleton } fr
 export * from './icons'
 export * from './modal'
 export { Select } from './select'
+export { Radio, RadioGroup } from './radio'
+export { PaymentButton } from './payment-button'
