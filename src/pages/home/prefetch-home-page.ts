@@ -15,9 +15,7 @@ type TotalCountUsersResponse = {
  * - Интегрируем данные в React Query кеш
  * - Данные доступны для usePost хука в других компонентах
  * - Поддерживаем единый кеш приложения
- *
- * @param apiUrl - URL API (по умолчанию берется из env или используется дефолтный)
- * @returns Объект с dehydratedState для HydrationBoundary и данными
+ 
  */
 export async function prefetchHomePageData(apiUrl?: string) {
   const queryClient = getQueryClient()

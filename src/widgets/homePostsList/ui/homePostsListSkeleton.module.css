@@ -1,0 +1,69 @@
+.imageSkeleton {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-dark-300) 25%, var(--color-dark-500) 50%, var(--color-dark-300) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.avatarSkeleton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, var(--color-dark-300) 25%, var(--color-dark-500) 50%, var(--color-dark-300) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.userNameSkeleton {
+  width: 100px;
+  height: 16px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-dark-300) 25%, var(--color-dark-500) 50%, var(--color-dark-300) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.timeSkeleton {
+  width: 60px;
+  height: 12px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-dark-300) 25%, var(--color-dark-500) 50%, var(--color-dark-300) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.descriptionSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.descriptionLine {
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-dark-300) 25%, var(--color-dark-500) 50%, var(--color-dark-300) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.descriptionLine:first-child {
+  width: 100%;
+}
+
+.descriptionLine:last-child {
+  width: 70%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
