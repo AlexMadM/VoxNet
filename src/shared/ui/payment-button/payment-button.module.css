@@ -1,0 +1,39 @@
+.paymentButton {
+  width: 96px;
+  height: 64px;
+
+  padding: 0;
+  border-radius: 7px;
+  border: 1px solid #2a2a2a;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  font-weight: var(--font-weight-bold);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.paypal {
+  background-color: #171717;
+  color: #333333;
+}
+
+.paypal:hover {
+  background-color: #151515;
+}
+
+.stripe {
+  background-color: #171717;
+  color: #333333;
+}
+
+.stripe:hover {
+  background-color: #151515;
+}

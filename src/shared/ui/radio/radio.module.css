@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.radioItem {
+  all: unset;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--color-light-500);
+  background-color: transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radioItem:hover:not([data-disabled]) {
+  border-color: var(--color-light-100);
+}
+
+.radioItem:focus-visible {
+  outline: 2px solid var(--color-dark-900);
+  outline-offset: 2px;
+}
+
+.radioItem[data-disabled] {
+  cursor: default;
+  border-color: var(--color-light-900);
+  opacity: 0.5;
+}
+
+.radioIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.radioIndicator::after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-light-100);
+}
+
+.radioItem[data-state='unchecked'] .radioIndicator::after {
+  display: none;
+}
+
+.radioItem[data-disabled] .radioIndicator::after {
+  background-color: var(--color-light-900);
+}
+
+.radioLabel {
+  user-select: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.radioItem[data-disabled] ~ .radioLabel {
+  color: var(--color-light-900) !important;
+  cursor: default;
+}
+

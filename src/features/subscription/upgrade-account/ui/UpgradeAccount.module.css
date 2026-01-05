@@ -1,0 +1,77 @@
+.container {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  max-width: 100%;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionTitle {
+  color: var(--color-light-100);
+}
+
+.radioGroup {
+  border-radius: 7px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #171717;
+  border: 1px solid var(--color-dark-300);
+}
+
+.subscriptionCard {
+  border-radius: 7px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #171717;
+  border: 1px solid var(--color-dark-300);
+}
+
+.subscriptionInfo {
+  display: flex;
+  gap: 32px;
+}
+
+.autoRenewal {
+  margin-top: 8px;
+}
+
+.paymentSection {
+  display: flex;
+  align-items: center;
+  gap: 45px;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+.orText {
+  user-select: none;
+}
+
+.modalText {
+  margin-bottom: 24px;
+}
+
+.agreeSection {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
