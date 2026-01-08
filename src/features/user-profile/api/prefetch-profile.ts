@@ -4,19 +4,6 @@ import { postsApi } from '@/entities/posts/api'
 import { userApi } from '@/entities/user/api/user'
 import type { ResponsesPosts } from '@/entities/posts/api/types'
 
-/**
- * Префетчит данные профиля и посты пользователя на сервере
- * Запросы запускаются параллельно и ожидаются перед возвратом
- * Это позволяет:
- * 1. Данные гарантированно загружены перед отправкой HTML
- * 2. Данные доступны в HTML даже без JavaScript
- * 3. Успешные queries включаются в dehydratedState
- * 4. TTFB будет медленнее (~500ms), но данные точно в HTML
- *
- * @param userId - ID пользователя
- * @param pageSize - Размер страницы для постов (по умолчанию 8)
- * @returns Dehydrated state для HydrationBoundary (только успешные queries)
- */
 export async function prefetchProfileWithPosts(userId: number, pageSize = 8) {
   const queryClient = getQueryClient()
 
