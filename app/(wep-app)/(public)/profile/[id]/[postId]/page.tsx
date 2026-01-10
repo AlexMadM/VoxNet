@@ -33,7 +33,7 @@ const PostPage = async ({ params }: Props) => {
 
   // Предзагружаем данные поста и комментариев в одном QueryClient
   // loading.tsx автоматически показывается во время выполнения этого await
-  const dehydratedState = prefetchPostWithComments(postIdNumber)
+  const dehydratedState = await prefetchPostWithComments(postIdNumber)
 
   return (
     <HydrationBoundary state={dehydratedState}>
