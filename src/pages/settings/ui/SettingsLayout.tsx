@@ -1,12 +1,10 @@
-import { ReactNode, Suspense } from 'react'
+import { ReactNode } from 'react'
 import { SettingsTabs } from '@/widgets'
 
 export async function SettingsLayout({ children }: { children: ReactNode }) {
   return (
     <section>
-      <Suspense fallback={null}>
-        <SettingsTabs />
-      </Suspense>
+      <SettingsTabs />
       <div>{children}</div>
     </section>
   )

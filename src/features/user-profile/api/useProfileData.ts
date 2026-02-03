@@ -1,8 +1,8 @@
 'use client'
 
-import { useMemo } from 'react'
 import { useAuth } from '@/shared/lib'
 import { useUserProfile } from '@/entities/user'
+// import { usePublicUserProfile } from '@/entities/user/model/useUserProfile'
 import { useUserPosts } from '@/entities/posts/model'
 import type { profileOwner } from '../ui/ProfileActions'
 
@@ -11,7 +11,7 @@ type UseProfileDataParams = {
   pageSize?: number
 }
 
-export type UseProfileDataReturn = {
+type UseProfileDataReturn = {
   // Данные
   profileData: ReturnType<typeof useUserProfile>['data']
   postsData: ReturnType<typeof useUserPosts>['data']
@@ -36,14 +36,21 @@ export type UseProfileDataReturn = {
   bio: string | undefined
 
   // Общее состояние
-  isLoading?: boolean
-  isProfileLoading?: boolean
+  isLoading: boolean
 }
 
+/**
+ * Хук для получения и обработки всех данных профиля пользователя.
+ * Объединяет логику загрузки постов, профиля и вычисления производных значений.
+ *
+ * @param userId - ID пользователя, чей профиль нужно загрузить
+ * @param pageSize - Размер страницы для постов (по умолчанию 8)
+ * @returns Объект с данными профиля, состояниями загрузки и вычисленными значениями
+ */
 export const useProfileData = ({ userId, pageSize = 8 }: UseProfileDataParams): UseProfileDataReturn => {
-  const { user } = useAuth()
+  const { user, isLoading: isAuthLoading } = useAuth()
 
-  const isMyProfile = useMemo(() => user?.userId === userId, [user?.userId, userId])
+  const isMyProfile = user?.userId === userId
 
   // Загружаем посты пользователя
   const {
@@ -57,20 +64,27 @@ export const useProfileData = ({ userId, pageSize = 8 }: UseProfileDataParams): 
     hasNextPage
   } = useUserPosts({ userId, pageSize })
 
-  // Загружаем данные профиля по userId
-  const { data: profileData, isLoading: isProfileLoading } = useUserProfile(userId)
+  // Определяем userName для загрузки профиля
+  const userName = (isMyProfile ? user?.userName : postsData?.pages[0]?.items[0]?.userName) ?? null
+
+  // Загружаем данные профиля
+  const { data: profileData, isLoading: isProfileLoading } = useUserProfile(userName)
+
+  // Загружаем публичный профиль по userId (закомментировано)
+  // const { data: publicProfileData, isLoading: isPublicProfileLoading } = usePublicUserProfile(userId)
 
   // Вычисляем производные значения
-  const profileOwner: profileOwner = useMemo(() => (isMyProfile ? 'myProfile' : 'guestProfile'), [isMyProfile])
+  const profileOwner: profileOwner = isMyProfile ? 'myProfile' : 'guestProfile'
+  const displayName = profileData?.userName || userName || user?.userName || 'User'
+  const avatarUrl = profileData?.avatars?.[0]?.url
+  const bio = profileData?.aboutMe
 
-  const displayName = useMemo(
-    () => profileData?.userName || user?.userName || 'User',
-    [profileData?.userName, user?.userName]
-  )
-
-  const avatarUrl = useMemo(() => profileData?.avatars?.[0]?.url, [profileData?.avatars])
-
-  const bio = useMemo(() => profileData?.aboutMe, [profileData?.aboutMe])
+  // Определяем состояние загрузки
+  const isLoading =
+    isAuthLoading ||
+    (isMyProfile
+      ? isProfileLoading && !profileData
+      : (isPostsLoading && !postsData) || (isProfileLoading && !profileData && !!userName))
 
   return {
     profileData,
@@ -86,6 +100,6 @@ export const useProfileData = ({ userId, pageSize = 8 }: UseProfileDataParams): 
     displayName,
     avatarUrl,
     bio,
-    isProfileLoading
+    isLoading
   }
 }

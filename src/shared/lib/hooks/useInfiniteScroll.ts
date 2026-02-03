@@ -30,6 +30,10 @@ type UseInfiniteScrollOptions = {
    */
   rootMargin?: string
   /**
+   * Ref на scroll-контейнер. Если не задан, используется viewport.
+   */
+  rootRef?: RefObject<HTMLElement | null>
+  /**
    * Задержка перед разрешением следующего вызова (в мс)
    * Защита от множественных вызовов при быстром скролле
    * @default 300
@@ -71,29 +75,30 @@ export const useInfiniteScroll = (options: UseInfiniteScrollOptions) => {
     fetchNextPage,
     threshold = 0.1,
     rootMargin = '10px',
+    rootRef,
     debounceMs = 300,
     enabled = true
   } = options
 
-  const observerRef = useRef<IntersectionObserver | null>(null)
+  // Используем ref для актуальных значений в callback
+  const hasNextPageRef = useRef(hasNextPage)
+  const isFetchingNextPageRef = useRef(isFetchingNextPage)
+  const fetchNextPageRef = useRef(fetchNextPage)
+
+  // Обновляем refs при изменении пропсов
+  hasNextPageRef.current = hasNextPage
+  isFetchingNextPageRef.current = isFetchingNextPage
+  fetchNextPageRef.current = fetchNextPage
+
   const isFetchingRef = useRef(false)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const currentTarget = targetRef.current
+    const root = rootRef?.current ?? null
 
-    // Ранний выход если observer отключен или нет необходимых условий
-    if (!enabled || !currentTarget || !hasNextPage || isFetchingNextPage || !fetchNextPage) {
-      // Отключаем observer если он был создан
-      if (observerRef.current) {
-        observerRef.current.disconnect()
-        observerRef.current = null
-      }
-      return
-    }
-
-    // Если observer уже существует, не создаем новый
-    if (observerRef.current) {
+    // Ранний выход если observer отключен или нет target
+    if (!enabled || !currentTarget) {
       return
     }
 
@@ -103,53 +108,59 @@ export const useInfiniteScroll = (options: UseInfiniteScrollOptions) => {
         const [entry] = entries
 
         // Проверяем видимость и защищаемся от множественных вызовов
-        if (entry?.isIntersecting && hasNextPage && !isFetchingNextPage && !isFetchingRef.current && fetchNextPage) {
+        if (
+          entry?.isIntersecting &&
+          hasNextPageRef.current &&
+          !isFetchingNextPageRef.current &&
+          !isFetchingRef.current &&
+          fetchNextPageRef.current
+        ) {
           isFetchingRef.current = true
 
           try {
-            const result = fetchNextPage()
+            const result = fetchNextPageRef.current()
 
             // Если fetchNextPage возвращает Promise, обрабатываем его
             if (result instanceof Promise) {
-              result.catch((error) => {
-                console.error('Ошибка при загрузке следующей страницы:', error)
-              })
+              result
+                .catch((error) => {
+                  console.error('Ошибка при загрузке следующей страницы:', error)
+                })
+                .finally(() => {
+                  // Сбрасываем флаг после задержки
+                  timeoutRef.current = setTimeout(() => {
+                    isFetchingRef.current = false
+                  }, debounceMs)
+                })
+            } else {
+              // Сбрасываем флаг после задержки для синхронных вызовов
+              timeoutRef.current = setTimeout(() => {
+                isFetchingRef.current = false
+              }, debounceMs)
             }
           } catch (error) {
             console.error('Ошибка при загрузке следующей страницы:', error)
-          } finally {
-            // Очищаем предыдущий timeout если он есть
-            if (timeoutRef.current) {
-              clearTimeout(timeoutRef.current)
-            }
-
-            // Сбрасываем флаг после задержки
-            timeoutRef.current = setTimeout(() => {
-              isFetchingRef.current = false
-            }, debounceMs)
+            isFetchingRef.current = false
           }
         }
       },
       {
         threshold,
-        rootMargin
+        rootMargin,
+        root
       }
     )
 
     observer.observe(currentTarget)
-    observerRef.current = observer
 
     // Cleanup функция
     return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect()
-        observerRef.current = null
-      }
+      observer.disconnect()
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current)
         timeoutRef.current = null
       }
       isFetchingRef.current = false
     }
-  }, [enabled, hasNextPage, isFetchingNextPage, fetchNextPage, threshold, rootMargin, debounceMs, targetRef])
+  }, [enabled, threshold, rootMargin, targetRef, rootRef, debounceMs])
 }

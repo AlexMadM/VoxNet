@@ -1,49 +1,47 @@
 'use client'
 
-import { useMemo, useRef } from 'react'
+import { useRef } from 'react'
 import Link from 'next/link'
 import s from './userProfile.module.css'
 
 import { ProfileActions } from './ProfileActions'
 import { PostImageSlider } from '@/shared/lib/post-image-slider'
-import { Avatar, Typography, PostSkeleton } from '@/shared/ui'
+import { Avatar, Typography, PostSkeleton, ProfileSkeleton } from '@/shared/ui'
 import { useInfiniteScroll } from '@/shared/lib'
-import type { UseProfileDataReturn } from '../api/useProfileData'
+import { useProfileData } from '../api/useProfileData'
 
-export const UserProfile = ({
-  profileData,
-  postsData,
-  isPostsLoading,
-  isFetchingNextPage,
-  isPostsError,
-  postsError,
-  refetchPosts,
-  fetchNextPage,
-  hasNextPage,
-  profileOwner,
-  displayName,
-  avatarUrl,
-  bio
-}: UseProfileDataReturn) => {
+type Props = {
+  userId: number
+  pageSize?: number
+}
+
+export const UserProfile = ({ userId, pageSize = 8 }: Props) => {
+  const {
+    profileData,
+    postsData,
+    isPostsLoading,
+    isFetchingNextPage,
+    isPostsError,
+    postsError,
+    refetchPosts,
+    fetchNextPage,
+    hasNextPage,
+    profileOwner,
+    displayName,
+    avatarUrl,
+    bio,
+    isLoading
+  } = useProfileData({ userId, pageSize })
+
   const observerTarget = useRef<HTMLDivElement>(null)
 
-  const allPosts = useMemo(() => postsData?.pages.flatMap((page) => page.items) ?? [], [postsData?.pages])
+  const allPosts = postsData?.pages.flatMap((page) => page.items) ?? []
 
-  const stats = useMemo(
-    () => ({
-      following: profileData?.userMetadata?.following ?? 0,
-      followers: profileData?.userMetadata?.followers ?? 0,
-      publications: profileData?.userMetadata?.publications ?? 0
-    }),
-    [profileData?.userMetadata]
-  )
-
-  const profileDescription = useMemo(
-    () =>
-      bio ??
-      'Расскажите о себе в настройках профиля. Это поле можно обновить в разделе Profile settings — пользователи увидят его здесь.',
-    [bio]
-  )
+  const stats = {
+    following: profileData?.followingCount ?? 0,
+    followers: profileData?.followersCount ?? 0,
+    publications: profileData?.publicationsCount ?? 0
+  }
 
   // Обработка бесконечной прокрутки через Intersection Observer
   useInfiniteScroll({
@@ -55,8 +53,15 @@ export const UserProfile = ({
     rootMargin: '10px'
   })
 
+  // Показываем скелетон при начальной загрузке (ПОСЛЕ всех Hooks)
+  if (isLoading && !profileData && !postsData) {
+    return <ProfileSkeleton />
+  }
 
-  
+  // Используем готовые значения из хука, добавляем fallback только для bio
+  const profileDescription =
+    bio ??
+    'Расскажите о себе в настройках профиля. Это поле можно обновить в разделе Profile settings — пользователи увидят его здесь.'
 
   return (
     <section className={s.page}>
@@ -100,9 +105,11 @@ export const UserProfile = ({
           <div className={s.error}>
             Не удалось загрузить посты: {postsError?.message || 'попробуйте позже'}
             <br />
-            <button type="button" onClick={() => refetchPosts?.()}>
-              Повторить
-            </button>
+            {refetchPosts && (
+              <button type="button" onClick={() => refetchPosts()}>
+                Повторить
+              </button>
+            )}
           </div>
         )}
 

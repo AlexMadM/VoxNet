@@ -26,10 +26,17 @@ export const PaymentModals = ({
   onCloseSuccess,
   onCloseError
 }: Props) => {
+  const handleCloseCreate = (open: boolean) => {
+    if (!open) {
+      onAgreeChange(false)
+    }
+    onCloseCreate(open)
+  }
+
   return (
     <>
       {/* Create payment */}
-      <Dialog open={createPaymentOpen} onOpenChange={onCloseCreate}>
+      <Dialog open={createPaymentOpen} onOpenChange={handleCloseCreate}>
         <DialogContent title="Create payment" showCloseButton>
           <Typography variant="regular_14" color="light" className={s.modalText}>
             Auto-renewal will be enabled with this payment. You can disable it anytime in your profile settings

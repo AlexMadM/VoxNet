@@ -27,7 +27,6 @@ import { prefetchPostWithComments } from '@/features/posts/view-post/api/prefetc
  * - Это баланс между актуальностью данных и производительностью
  */
 
-
 type Props = {
   params: Promise<{ postId: string }>
 }

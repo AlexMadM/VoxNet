@@ -5,12 +5,15 @@ import { ReactNode } from 'react'
 import { Button, Typography } from '@/shared/ui'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '@/shared/lib'
+import { NotificationBell } from '@/widgets/notifications'
 
 type Props = {
   children?: ReactNode
 }
 
 export const Header = ({ children }: Props) => {
+  const { user } = useAuth()
+
   return (
     <header className={s.header}>
       <div className={s.container}>
@@ -19,7 +22,10 @@ export const Header = ({ children }: Props) => {
             <span>Inctagram</span>
           </Typography>
         </Link>
-        <div className={s.box}>{children}</div>
+        <div className={s.box}>
+          {user && <NotificationBell />}
+          {children}
+        </div>
       </div>
     </header>
   )

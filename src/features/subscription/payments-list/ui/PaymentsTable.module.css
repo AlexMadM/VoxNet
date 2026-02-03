@@ -1,0 +1,65 @@
+/* src/features/subscription/payments-list/ui/PaymentsTable.module.css */
+.container {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-dark-700);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.table thead {
+  background-color: var(--color-dark-500);
+}
+
+.table th {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-dark-300);
+}
+
+.table th:first-child {
+  padding-left: 24px;
+}
+
+.table th:last-child {
+  padding-right: 24px;
+}
+
+.table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--color-dark-300);
+}
+
+.table td:first-child {
+  padding-left: 24px;
+}
+
+.table td:last-child {
+  padding-right: 24px;
+}
+
+/*.table tbody tr:hover {*/
+/*  background-color: var(--color-dark-500);*/
+/*}*/
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table td.loading,
+.table td.error,
+.table td.empty {
+  text-align: center;
+  padding: 48px 16px;
+}
+
+.table td.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

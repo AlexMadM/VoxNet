@@ -9,6 +9,7 @@ import {
   LogoutResponse,
   PersonalData,
   PersonalDataRequest,
+  PublicUserProfile,
   ResendRecoveryEmailType,
   SendRecoveryEmailType,
   SetNewPasswordType,
@@ -17,8 +18,7 @@ import {
   SignUpErrorResponse,
   SignUpRequest,
   User,
-  UserProfileResponse,
-  UserPublicProfile
+  UserProfileResponse
 } from './user-types'
 
 export const userApi = {
@@ -84,13 +84,12 @@ export const userApi = {
     const response = await api.get<UserProfileResponse>(`/users/${userName}`)
     return response.data
   },
-  getPublicUserProfile: async (profileId: number) => {
-    const response = await api.get<UserPublicProfile>(`/public-user/profile/${profileId}`)
-    return response.data
-  },
-
   getPersonalData: async (): Promise<PersonalData> => {
     const response = await api.get<PersonalData>('/users/profile')
+    return response.data
+  },
+  getPublicUserProfile: async (profileId: number): Promise<PublicUserProfile> => {
+    const response = await api.get<PublicUserProfile>(`/public-user/profile/${profileId}`)
     return response.data
   }
 }

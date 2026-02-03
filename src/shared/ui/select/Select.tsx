@@ -11,14 +11,15 @@ type SelectProps = {
   placeholder?: string
   options: Option[]
   label: string
+  className?: string
 } & ComponentPropsWithoutRef<typeof SelectPrimitive.Root>
 
-export const Select = ({ placeholder = 'Select', options, label, ...props }: SelectProps) => {
+export const Select = ({ placeholder = 'Select', options, label, className, ...props }: SelectProps) => {
   return (
     <div className={s.wrapper}>
       <label className={s.label}>{label}</label>
       <SelectPrimitive.Root {...props}>
-        <SelectPrimitive.Trigger className={s.trigger}>
+        <SelectPrimitive.Trigger className={`${s.trigger} ${className ?? ''}`}>
           <SelectPrimitive.Value placeholder={placeholder} />
           {/*иконка*/}
           <SelectPrimitive.Icon>

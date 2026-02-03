@@ -5,8 +5,7 @@ import s from './oauth.module.css'
 export const Oauth = () => {
   const loginWithGitHub = () => {
     const backendUrl = process.env.NEXT_PUBLIC_OAUTH_URL
-    // Редиректим на главную страницу, где будет обработан OAuth callback
-    const redirectUrl = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin
+    const redirectUrl = process.env.NEXT_PUBLIC_BASE_URL!
 
     window.location.assign(`${backendUrl}?redirect_url=${encodeURIComponent(redirectUrl)}`)
   }

@@ -15,12 +15,7 @@ export const Radio = ({ className, label, labelClassName, value, ...rest }: Radi
 
   return (
     <div className={clsx(s.container, className)}>
-      <RadixRadioGroup.Item
-        id={id}
-        value={value}
-        className={clsx(s.radioItem)}
-        {...rest}
-      >
+      <RadixRadioGroup.Item id={id} value={value} className={clsx(s.radioItem)} {...rest}>
         <RadixRadioGroup.Indicator className={s.radioIndicator} />
       </RadixRadioGroup.Item>
       {label && (
@@ -35,4 +30,3 @@ export const Radio = ({ className, label, labelClassName, value, ...rest }: Radi
 }
 
 export const RadioGroup = RadixRadioGroup.Root
-

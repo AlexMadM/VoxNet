@@ -1,21 +1,18 @@
 'use client'
 
 import { UserProfile } from './UserProfile'
-import { useProfileData } from '../api/useProfileData'
-
 
 type ProfilePageClientProps = {
   userId: number
 }
 
 /**
- * Container компонент для страницы профиля.
- * Отвечает за получение данных через useProfileData и передачу их в презентационный компонент UserProfile.
- * Контролирует показ скелетона пока данные не загружены.
+ * Клиентский компонент страницы профиля.
+ *
+ * Упрощен: убрано дублирование useProfileData.
+ * UserProfile сам обрабатывает загрузку и показывает скелетон через useProfileData.
+ * React Query автоматически кэширует запросы, поэтому дублирование не нужно.
  */
 export const ProfilePageClient = ({ userId }: ProfilePageClientProps) => {
-  const profileData = useProfileData({ userId })
-
-
-  return <UserProfile {...profileData} />
+  return <UserProfile userId={userId} />
 }

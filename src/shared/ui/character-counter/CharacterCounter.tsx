@@ -1,4 +1,4 @@
-import s from './character-counter.module.css'
+import s from './Character-counter.module.css'
 
 export type CharacterCounterProps = {
   current: number

@@ -1,9 +1,9 @@
-
 .trigger {
   all: unset;
   display: inline-flex;
   justify-content: space-between;
-  width: 358px;
+  min-width: 358px;
+  width: 100%;
   padding: 6px 12px;
   font-weight: 400;
   /*background-color: #171717;*/
@@ -24,7 +24,7 @@
 .label {
   font-size: 14px;
   line-height: 24px;
-  color: #BDC1C7;
+  color: #bdc1c7;
   font-weight: 400;
 }
 
@@ -75,7 +75,7 @@
   outline: none;
 }
 
-.item[data-state="checked"] {
+.item[data-state='checked'] {
   background-color: #4d4d4d;
   font-weight: 500;
 }
