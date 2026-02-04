@@ -25,7 +25,7 @@ export const SignUp = () => {
   } = useForm<SignUpForm>({
     defaultValues: { email: '', password: '', agree: false, confirmPassword: '', userName: '' },
     resolver: zodResolver(SignUpSchema),
-    mode: 'onBlur',
+    mode: 'onChange',
     reValidateMode: 'onChange'
   })
   const agree = watch('agree')

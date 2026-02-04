@@ -64,6 +64,7 @@ export const Sidebar = () => {
                 key={item.name}
                 href={item.href || '#'}
                 {...(item.onClick && { onClick: item.onClick })}
+                prefetch={false}
                 className={clsx(s.link, active && s.active, isSearch && s.searchItem)}
               >
                 <Icon className={s.icon} />

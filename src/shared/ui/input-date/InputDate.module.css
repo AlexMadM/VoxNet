@@ -1,6 +1,6 @@
 .card {
   padding: 6px 24px;
-  position:absolute;
+  position: absolute;
 }
 
 .navBtn {
@@ -22,7 +22,6 @@
 .chevron {
   display: inline-block;
   fill: var(--color-light-100);
-
 }
 
 .today {
@@ -30,7 +29,7 @@
 }
 
 .outside {
-  color: var(--color-light-900)
+  color: var(--color-light-900);
 }
 
 .day {
@@ -65,11 +64,10 @@
   font-size: var(--font-size-m); /* 16px */
   font-weight: var(--font-weight-regular); /* 400 */
   line-height: var(--line-height-m); /* 24px */
-
 }
 
 .weekend {
-  color: var(--color-danger-300)
+  color: var(--color-danger-300);
 }
 
 .selected {

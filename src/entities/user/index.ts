@@ -10,6 +10,5 @@ export type {
   ResendRecoveryEmailType,
   SetNewPasswordType,
   PersonalDataRequest,
-  PersonalData,
-  UserPublicProfile
+  PersonalData
 } from './api/user-types'

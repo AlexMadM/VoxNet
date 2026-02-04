@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/nextjs'
-import { AuthContext } from '@/shared/lib'
+import { MockAuthProvider } from '@/shared/lib'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { PropsWithChildren, useMemo, useState } from 'react'
+import { PropsWithChildren, useState } from 'react'
 import { SignInForm } from './SignInForm'
 
 const meta = {
@@ -24,23 +24,10 @@ const QueryWrapper = ({ children }: PropsWithChildren) => {
   return <QueryClientProvider client={client}>{children}</QueryClientProvider>
 }
 
-const MockAuthProvider = ({ children }: PropsWithChildren) => {
-  const contextValue = useMemo(
-    () => ({
-      user: null,
-      isLoading: false,
-      isError: false,
-      isAuthenticated: false
-    }),
-    []
-  )
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
-}
-
 export const Default: Story = {
   render: () => (
     <QueryWrapper>
-      <MockAuthProvider>
+      <MockAuthProvider user={null}>
         <SignInForm />
       </MockAuthProvider>
     </QueryWrapper>

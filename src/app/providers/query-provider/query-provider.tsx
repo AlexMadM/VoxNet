@@ -8,7 +8,7 @@ import { getQueryClient } from './get-query-client'
 
 /**
  * QueryProvider для приложения
- * 
+ *
  * HydrationBoundary используется на уровне страниц, а не здесь,
  * чтобы разные страницы могли иметь свой dehydratedState
  */

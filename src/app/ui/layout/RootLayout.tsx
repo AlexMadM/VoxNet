@@ -3,7 +3,7 @@ import localFont from 'next/font/local'
 import { ReactNode } from 'react'
 import { QueryProvider } from '@/app/providers/query-provider/query-provider'
 import '@/app/ui/styles/index.css'
-import { AuthProvider } from '@/shared/lib'
+import { AuthProvider, OAuthHandler } from '@/shared/lib'
 
 const interFont = localFont({
   src: [
@@ -12,8 +12,8 @@ const interFont = localFont({
     { path: '../../../../public/fonts/Inter-SemiBold.woff2', weight: '600', style: 'normal' },
     { path: '../../../../public/fonts/Inter-Bold.woff2', weight: '700', style: 'normal' }
   ],
-  display: 'swap', // улучшает UX и performance
-  preload: true //
+  display: 'swap',
+  preload: true
 })
 
 export const metadata: Metadata = {
@@ -26,7 +26,10 @@ export const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
     <html lang="en" className={interFont.className}>
       <body>
         <QueryProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <OAuthHandler />
+            {children}
+          </AuthProvider>
         </QueryProvider>
       </body>
     </html>

@@ -3,12 +3,13 @@
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import { Dialog, DialogContent, DialogClose } from '@/shared/ui/modal'
-import { Close } from '@/shared/ui'
+import { Close, PostModalSkeleton } from '@/shared/ui'
 import { useAuth } from '@/shared/lib'
-import { CommentsList } from '@/features/posts/post-comments'
 import { usePost } from '@/entities/posts/model'
+import { useDeletePost } from '@/features/posts/delete-post/api'
 import { EditPostForm } from '@/features/posts/edit-post/ui/EditPostForm'
-import { PostModalHeader, PostModalImageSection, PostModalFooter, PostModalDeleteDialog } from './ui'
+import { PostModalContent } from './PostModalContent'
+import { DeletePostDialog } from './DeletePostDialog'
 import s from './PostModal.module.css'
 
 type PostModalProps = {
@@ -23,18 +24,17 @@ type PostModalProps = {
  * - Поддерживает закрытие через ESC и клик по overlay
  * - Автоматически обновляет URL при открытии/закрытии
  * - Оптимизированная загрузка данных через React Query
- * - Использует существующий PostImageSlider компонент
- * - Ошибки обрабатываются через Next.js error.tsx механизм
+ * - Разбит на подкомпоненты для лучшей поддерживаемости
  */
 export const PostModal = ({ postId }: PostModalProps) => {
   const router = useRouter()
   const { user } = useAuth()
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+  const { mutate: deletePost, isPending: isDeleting } = useDeletePost()
 
   // Запрос поста всегда активен - React Query сам управляет состоянием
-  // throwOnError: true пробрасывает ошибку в Next.js error boundary
-  const { data: post } = usePost(postId, { throwOnError: true })
+  const { data: post, isLoading } = usePost(postId)
 
   // Закрытие модального окна с возвратом на предыдущую страницу
   const handleOpenChange = useCallback(
@@ -46,33 +46,59 @@ export const PostModal = ({ postId }: PostModalProps) => {
     [router]
   )
 
+  // Обработчик удаления поста
+  const handleDeleteConfirm = useCallback(() => {
+    deletePost(postId, {
+      onSuccess: () => {
+        setIsDeleteOpen(false)
+        router.back()
+      }
+    })
+  }, [deletePost, postId, router])
+
+  // Показываем скелетон только если данные загружаются и их еще нет
+  const showSkeleton = isLoading && !post
+
+  if (showSkeleton) {
+    return (
+      <Dialog open={true} onOpenChange={handleOpenChange}>
+        <DialogContent showCloseButton={false} className={s.modalContent}>
+          <DialogClose className={s.closeButton} aria-label="Закрыть">
+            <Close />
+          </DialogClose>
+          <PostModalSkeleton />
+        </DialogContent>
+      </Dialog>
+    )
+  }
+
   if (!post) {
     return null
   }
 
   return (
-    <Dialog open={true} onOpenChange={handleOpenChange}>
-      <DialogContent showCloseButton={false} className={s.modalContent}>
-        <DialogClose className={s.closeButton} aria-label="Закрыть">
-          <Close />
-        </DialogClose>
-        <div className={s.postContainer}>
-          <PostModalImageSection post={post} />
-          <div className={s.sidebar}>
-            <PostModalHeader
-              post={post}
-              currentUserId={user?.userId ?? null}
-              onEdit={() => setIsEditOpen(true)}
-              onDelete={() => setIsDeleteOpen(true)}
-            />
-            <section className={s.comments} aria-label="Комментарии">
-              <CommentsList postId={post.id} user={user?.userId} />
-            </section>
-            <PostModalFooter post={post} />
-          </div>
-        </div>
-      </DialogContent>
-      <PostModalDeleteDialog postId={postId} isOpen={isDeleteOpen} onOpenChange={setIsDeleteOpen} />
+    <>
+      <Dialog open={true} onOpenChange={handleOpenChange}>
+        <DialogContent showCloseButton={false} className={s.modalContent}>
+          <DialogClose className={s.closeButton} aria-label="Закрыть">
+            <Close />
+          </DialogClose>
+          <PostModalContent
+            post={post}
+            currentUserId={user?.userId ?? null}
+            onEdit={() => setIsEditOpen(true)}
+            onDelete={() => setIsDeleteOpen(true)}
+          />
+        </DialogContent>
+      </Dialog>
+
+      <DeletePostDialog
+        isOpen={isDeleteOpen}
+        onOpenChange={setIsDeleteOpen}
+        onConfirm={handleDeleteConfirm}
+        isDeleting={isDeleting}
+      />
+
       <EditPostForm
         isOpen={isEditOpen}
         onClose={() => setIsEditOpen(false)}
@@ -82,6 +108,6 @@ export const PostModal = ({ postId }: PostModalProps) => {
         postImage={post.images[0]?.url}
         initialDescription={post.description}
       />
-    </Dialog>
+    </>
   )
 }

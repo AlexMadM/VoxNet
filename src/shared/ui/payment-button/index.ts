@@ -1,2 +1,1 @@
 export { PaymentButton } from './PaymentButton'
-

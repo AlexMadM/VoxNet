@@ -1,0 +1,107 @@
+/* src/widgets/pagination/ui/Pagination.module.css */
+.container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  width: fit-content;
+}
+
+.navButton {
+  background: transparent;
+  border: none;
+  color: var(--color-light-100);
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navButton:hover:not(:disabled) {
+  background-color: var(--color-dark-500);
+  border-color: var(--color-dark-300);
+}
+
+.navButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pageNumbers {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pageButton {
+  background: transparent;
+  border: 1px solid var(--color-dark-300);
+  color: var(--color-light-100);
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.pageButton:hover {
+  background-color: var(--color-dark-500);
+  border-color: var(--color-dark-300);
+}
+
+.pageButton.active {
+  background-color: var(--color-light-100);
+  color: var(--color-dark-900);
+}
+
+.ellipsis {
+  color: var(--color-light-100);
+  padding: 0 4px;
+  user-select: none;
+}
+
+.itemsPerPage {
+  display: flex;
+  align-items: center;
+  width: 52px;
+  min-width: 52px;
+  gap: 8px;
+  margin-left: auto;
+}
+/*.itemsPerPage :global(.trigger) {*/
+/*  width: 52px;*/
+/*  min-width: 52px;*/
+/*  padding: 8px 12px;*/
+/*}*/
+
+.itemsPerPage :global(.wrapper) {
+  margin: 0;
+}
+
+.itemsPerPage :global(.label) {
+  display: none;
+}
+
+.itemsPerPage :global(.trigger) {
+  min-width: 80px;
+  padding: 8px 12px;
+}
+
+.itemsPerPageText {
+  color: var(--color-light-100);
+  white-space: nowrap;
+  margin-left: 15px;
+}
+.widthSelect {
+  min-width: 20px;
+  padding: 10px 5px 0;
+}

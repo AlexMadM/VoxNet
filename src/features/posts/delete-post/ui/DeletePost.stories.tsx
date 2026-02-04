@@ -1,26 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
-import { AuthContext } from '@/shared/lib'
+import { MockAuthProvider } from '@/shared/lib'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ComponentType, PropsWithChildren, useMemo, useState } from 'react'
+import { ComponentType, PropsWithChildren, useState } from 'react'
 import { DeletePost } from './DeletePost'
 import type { User } from '@/entities/user'
 
 const QueryWrapper = ({ children }: PropsWithChildren) => {
   const [client] = useState(() => new QueryClient())
   return <QueryClientProvider client={client}>{children}</QueryClientProvider>
-}
-
-const MockAuthProvider = ({ children, user }: PropsWithChildren<{ user: User | null }>) => {
-  const contextValue = useMemo(
-    () => ({
-      user,
-      isLoading: false,
-      isError: false,
-      isAuthenticated: !!user
-    }),
-    [user]
-  )
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
 }
 
 const mockUser: User = {

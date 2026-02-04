@@ -21,5 +21,3 @@ export const SelectPostPhotoStep = ({ onSelectFromComputer }: Props) => {
     </>
   )
 }
-
-

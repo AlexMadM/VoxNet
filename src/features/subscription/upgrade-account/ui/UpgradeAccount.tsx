@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, useMemo } from 'react'
-import { PaymentButton, Typography } from '@/shared/ui'
+import { useState, useMemo, useEffect } from 'react'
+import { Checkbox, PaymentButton, Typography } from '@/shared/ui'
 import { useSubscriptionCost } from '@/entities/subscription/model/useSubscriptionCost'
 import { useCurrentSubscription } from '@/entities/subscription/model/useCurrentSubscription'
-import { useCreateSubscription } from '../api/useCreateSubscription'
 import { PaymentType, SubscriptionType } from '@/entities/subscription/api/types'
 import { SETTINGS_PART } from '@/shared/lib/routes'
 import s from './UpgradeAccount.module.css'
@@ -13,10 +12,15 @@ import { AccountTypeSelector } from './AccountTypeSelector'
 import { SubscriptionPlans } from './SubscriptionPlans'
 import { CurrentSubscriptionCard } from './CurrentSubscriptionCard'
 import { PaymentModals } from './PaymentModals'
+import { useCreateSubscription } from '../api/useCreateSubscription'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { UnsubscribeAutoRenewal } from '@/features/cancel-auto-renewal'
 
 export type AccountType = 'PERSONAL' | 'BUSINESS'
 
 export const UpgradeAccount = () => {
+  const searchParams = useSearchParams()
+  const router = useRouter()
   const [accountType, setAccountType] = useState<AccountType>('PERSONAL')
   const [selectedSubscriptionId, setSelectedSubscriptionId] = useState<string | null>(null)
   const [selectedPaymentType, setSelectedPaymentType] = useState<PaymentType | null>(null)
@@ -28,6 +32,19 @@ export const UpgradeAccount = () => {
   const { data: subscriptionCosts, isLoading: isLoadingCosts } = useSubscriptionCost()
   const { data: currentSubscription, isLoading: isLoadingCurrent } = useCurrentSubscription()
   const { mutate: createSubscription, isPending: isCreating } = useCreateSubscription()
+
+  // Handle payment callback from payment system
+  useEffect(() => {
+    const paymentStatus = searchParams?.get('success')
+    console.log(paymentStatus)
+    if (paymentStatus === 'true') {
+      setSuccessOpen(true)
+      router.replace(`/settings?part=${SETTINGS_PART.SUBSCRIPTIONS}`)
+    } else if (paymentStatus === 'false') {
+      setErrorOpen(true)
+      router.replace(`/settings?part=${SETTINGS_PART.SUBSCRIPTIONS}`)
+    }
+  }, [searchParams, router])
 
   const plans = subscriptionCosts?.data ?? []
 
@@ -62,6 +79,13 @@ export const UpgradeAccount = () => {
 
   const hasCurrentSubscription = !!currentSubscription?.data?.length
   const currentSub = hasCurrentSubscription ? currentSubscription.data[0] : null
+
+  // Set account type to BUSINESS when there's a current subscription
+  useEffect(() => {
+    if (hasCurrentSubscription) {
+      setAccountType('BUSINESS')
+    }
+  }, [hasCurrentSubscription])
 
   const handlePaymentClick = (paymentType: PaymentType) => {
     if (!selectedSubscription) return
@@ -104,17 +128,22 @@ export const UpgradeAccount = () => {
 
   return (
     <div className={s.container}>
-      {/* Account type */}
-      <AccountTypeSelector value={accountType} onChange={setAccountType} />
+      {/*/!* Current subscription *!/*/}
+      {/*{currentSub && (*/}
+      {/*  <CurrentSubscriptionCard*/}
+      {/*    endDate={currentSub.endDateOfSubscription}*/}
+      {/*    autoRenewal={currentSub.autoRenewal}*/}
+      {/*    formatDate={formatDate}*/}
+      {/*  />*/}
+      {/*)}*/}
 
-      {/* Current subscription */}
-      {currentSub && (
-        <CurrentSubscriptionCard
-          endDate={currentSub.endDateOfSubscription}
-          autoRenewal={currentSub.autoRenewal}
-          formatDate={formatDate}
-        />
-      )}
+      {/*<div className={s.autoRenewal}>*/}
+      {/*  <Checkbox label="Auto-Renewal" checked={true} />*/}
+      {/*</div>*/}
+      <UnsubscribeAutoRenewal />
+
+      {/* Account type */}
+      <AccountTypeSelector value={accountType} onChange={setAccountType} disabledPersonal={hasCurrentSubscription} />
 
       {/* Plans */}
       {accountType === 'BUSINESS' && plans.length > 0 && (

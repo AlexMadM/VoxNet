@@ -35,7 +35,6 @@
   min-width: 490px;
 }
 
-
 /* Стили для аватарки с именем -у калеги */
 .description {
   display: flex;
@@ -85,7 +84,7 @@
 }
 
 /*для мыдального окна c сообщением  */
-.confirmContent{
+.confirmContent {
   padding: 20px;
 }
 
@@ -99,7 +98,7 @@
 .confirmDialog {
   z-index: 1000;
   position: fixed;
-  padding: 24px ;
+  padding: 24px;
   width: 486px;
 }
 
